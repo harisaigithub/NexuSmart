@@ -1,0 +1,71 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}{{page_title}}{% endblock page_title %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Result</title>
+    <style media="screen">
+        a:link {
+            text-decoration: none;
+        }
+
+        .note {
+            text-align: center;
+            height: 100px;
+            background: -webkit-linear-gradient(left, #343a40, #607d8b);
+            color: #fff;
+            font-weight: bold;
+            line-height: 100px;
+        }
+
+        .form-content {
+            padding: 5%;
+            border: 2px solid #ced4da;
+            margin-bottom: 2%;
+        }
+
+        .form-control {
+            border-radius: 1.5rem;
+        }
+
+        .btnSubmit, .btnGenerateMCQs {
+            border: none;
+            border-radius: 1.5rem;
+            padding: 1%;
+            width: 20%;
+            cursor: pointer;
+            background: #4caf50;
+            color: #fff;
+        }
+
+        .form-group .difficulty-options {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+        }
+
+        .form-group .difficulty-options label {
+            flex: 1;
+            text-align: center;
+        }
+    </style>
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="note">
+        <h1>Quiz Result</h1>
+    </div>
+    <div class="form-content">
+        <p>Your score is {{ score }} out of {{ total }}.</p>
+    </div>
+</body>
+</html>
+
+{% endblock %}

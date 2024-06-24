@@ -1,0 +1,115 @@
+<!-- chatbot.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #chat-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #chat-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #question {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #submit-button {
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #submit-button:hover {
+            background: #0056b3;
+        }
+
+        #answer {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <h1>Chatbot</h1>
+        <form id="chat-form">
+            <input type="text" id="question" placeholder="Ask a question..." required>
+            <input type="submit" id="submit-button" value="Send">
+        </form>
+        <div id="answer"></div>
+        <div id="error"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Get CSRF token from meta tag
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $('#chat-form').submit(function(e) {
+                e.preventDefault();
+                var question = $('#question').val();
+                $('#error').text('');  // Clear any previous error
+                $.ajax({
+                    url: '{% url "chatbot" %}',
+                    type: 'POST',
+                    data: {
+                        'question': question,
+                        'csrfmiddlewaretoken': csrfToken
+                    },
+                    success: function(data) {
+                        if (data.error) {
+                            $('#error').text('Error: ' + data.error);
+                        } else {
+                            $('#answer').text(data.answer);
+                            $('#question').val('');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        $('#error').text('Error: ' + xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
