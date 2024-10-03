@@ -1,0 +1,68 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}Notes Management{% endblock page_title %}
+{% block content %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+
+    .panel {
+      margin: 0 auto;
+      max-width: 1000px; /* Increased max-width */
+      padding: 20px; /* Added padding for more space */
+    }
+
+    .table {
+      text-align: center;
+      width: 100%; /* Ensure table takes full width */
+    }
+
+    .panel-title {
+      text-align: center;
+      font-size: 24px;
+    }
+  </style>
+</head>
+
+<div class="container">
+  <div class="row">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h6 class="panel-title">Notes Management</h6>
+      </div>
+      <table class="table table-hover table-striped table-bordered" id="dev-table">
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a class="btn btn-primary btn-xs" href="{% url 'teacher_upload_notes' %}">Upload Notes</a></td>
+            <td>Click to upload notes</td>
+          </tr>
+          <tr>
+            <td><a class="btn btn-success btn-xs" href="{% url 'teacher_view_notes' %}">View Uploaded Notes</a></td>
+            <td>Click to view uploaded notes</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock content %}

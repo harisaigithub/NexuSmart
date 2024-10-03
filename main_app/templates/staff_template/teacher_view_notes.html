@@ -1,0 +1,42 @@
+{% extends 'main_app/base.html' %}
+{% load static %}
+{% block page_title %}Notes Sharing{% endblock page_title %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table id="mytable" class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>S.No</th>
+              <th>Subject</th>
+              <th>Topic</th>
+              <th>Uploaded File</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for note in notes %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ note.subject }}</td>
+              <td>{{ note.topic }}</td>
+              <td><a href="{{ note.notes_file.url }}">{{ note.notes_file.name }}</a></td>
+              <td>
+                <form action="{% url 'delete_note' note.id %}" method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
